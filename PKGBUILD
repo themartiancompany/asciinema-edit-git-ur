@@ -52,10 +52,11 @@ sha512sums=(
 )
 
 prepare() {
-  cp \
-    -r \
-    "${_tarname}/vendor" \
-    "${srcdir}"
+  true
+  # cp \
+  #   -r \
+  #   "${_tarname}/vendor" \
+  #   "${srcdir}"
 }
 
 build() {
