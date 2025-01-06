@@ -32,9 +32,11 @@ license=(
 )
 provides=(
   "${_pkg}=${pkgver}"
+  "go-${_pkg}=${pkgver}"
 )
 conflicts=(
   "${_pkg}"
+  "go-${_pkg}"
 )
 _branch="master"
 _tag_name="branch"
