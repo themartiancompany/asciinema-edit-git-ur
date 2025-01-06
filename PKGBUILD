@@ -7,7 +7,7 @@
 _git="true"
 _pkg=asciinema-edit
 pkgname="${_pkg}"
-pkgver=0.0.6.1
+pkgver=0.0.7.2.r0.g8411df9
 _commit="28a7d761cd7cb112f23e43e2f2f948542cc0fc9f"
 pkgrel=1
 pkgdesc="asciinema casts post-production tools."
@@ -163,31 +163,17 @@ pkgver() {
 prepare() {
   cd \
     "${_tarname}"
-  git \
-    submodule \
-      update \
-        --init \
-        --recursive
 }
 
 build() {
   local \
-    _go_opts=() \
     _go_flags=()
   _go_flags=(
     -buildmode=pie
     -trimpath
     -ldflags=-linkmode=external
-    -mod=readonly
+    -mod=vendor
     -modcacherw
-  )
-  _go_opts=(
-    -tags
-      "netgo"
-    -v
-    -a
-    -ldflags
-      "-X main.version=${pkgver} -extldflags \"-static\""
   )
   export \
     CGO_CPPFLAGS="${CPPFLAGS}" \
@@ -199,17 +185,22 @@ build() {
     "${_tarname}"
   go \
     build \
-      -o build \
+      -o \
+        "${_pkg}" \
       "${_pkg}"
-      # "${_go_opts[@]}" \
-      # "main.go"
 }
 
 package() {
+  cd \
+    "${_tarname}"
   install \
     -Dm755 \
     "${_pkg}" \
     "${pkgdir}/usr/bin/${_pkg}"
+  install \
+    -Dm644 \
+    "COPYING" \
+    "${pkgdir}/usr/share/licenses/${pkgname}"
   install \
     -Dm644 \
     "LICENSE" \
