@@ -7,7 +7,7 @@
 _git="true"
 _pkg=asciinema-edit
 pkgname="${_pkg}"
-pkgver=0.0.7.2.r0.g8411df9
+pkgver=0.0.7.2.r1.g946ef32
 _commit="28a7d761cd7cb112f23e43e2f2f948542cc0fc9f"
 pkgrel=1
 pkgdesc="asciinema casts post-production tools."
