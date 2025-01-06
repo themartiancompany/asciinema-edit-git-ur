@@ -148,7 +148,7 @@ _git_pkgver() {
 
 pkgver() {
   cd \
-    "${_pkgname}-${_branch}"
+    "${_tarname}"
   if [[ "${_git}" == true ]]; then
     _git_pkgver
   elif [[ "${_git}" == false ]]; then
