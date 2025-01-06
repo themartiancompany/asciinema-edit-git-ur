@@ -69,17 +69,18 @@ build() {
     -ldflags
       "-X main.version=${pkgver} -extldflags \"-static\""
   )
-  export CGO_CPPFLAGS="${CPPFLAGS}"
-  export CGO_CFLAGS="${CFLAGS}"
-  export CGO_CXXFLAGS="${CXXFLAGS}"
-  export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
+  export \
+    CGO_CPPFLAGS="${CPPFLAGS}" \
+    CGO_CFLAGS="${CFLAGS}" \
+    CGO_CXXFLAGS="${CXXFLAGS}" \
+    CGO_LDFLAGS="${LDFLAGS}" \
+    GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
   cd \
     "${_tarname}"
   go \
     build \
       -o build \
-      .
+      "${_pkg}"
       # "${_go_opts[@]}" \
       # "main.go"
 }
