@@ -4,7 +4,7 @@
 # Maintainer: Pellegrino Prevete (tallero) <pellegrinoprevete@gmail.com>
 # Maintainer: Malachi Soord <me@malachisoord.com>
 
-_git="false"
+_git="true"
 _pkg=asciinema-edit
 pkgname="${_pkg}"
 pkgver=0.0.6.1
@@ -159,16 +159,25 @@ pkgver() {
 
 
 prepare() {
-  true
-  # cp \
-  #   -r \
-  #   "${_tarname}/vendor" \
-  #   "${srcdir}"
+  cd \
+    "${_tarname}"
+  git \
+    submodule \
+      --init \
+      --recursive
 }
 
 build() {
   local \
-    _go_opts=()
+    _go_opts=() \
+    _go_flags=()
+  _go_flags=(
+    -buildmode=pie
+    -trimpath
+    -ldflags=-linkmode=external
+    -mod=readonly
+    -modcacherw
+  )
   _go_opts=(
     -tags
       "netgo"
@@ -182,7 +191,7 @@ build() {
     CGO_CFLAGS="${CFLAGS}" \
     CGO_CXXFLAGS="${CXXFLAGS}" \
     CGO_LDFLAGS="${LDFLAGS}" \
-    GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
+    GOFLAGS="${_go_flags[*]}"
   cd \
     "${_tarname}"
   go \
