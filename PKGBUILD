@@ -158,13 +158,6 @@ pkgver() {
   fi
 }
 
-
-
-prepare() {
-  cd \
-    "${_tarname}"
-}
-
 build() {
   local \
     _go_flags=()
@@ -210,5 +203,3 @@ package() {
     "README.md" \
     "${pkgdir}/usr/share/doc/${pkgname}/README.md"
 }
-
-
