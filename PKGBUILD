@@ -165,8 +165,9 @@ prepare() {
     "${_tarname}"
   git \
     submodule \
-      --init \
-      --recursive
+      update \
+        --init \
+        --recursive
 }
 
 build() {
